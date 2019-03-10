@@ -47,23 +47,24 @@
 #### 收集到的开源项目
 
 - [Realtime Multi-Person Pose Estimation](https://github.com/ZheC/Realtime_Multi-Person_Pose_Estimation)
-- CVPR2017 (Oral) GTX 1080
-- 9 people : 10 fps ; 19 people : 8.8 fps
-- TF, Pytorch 
+
+    CVPR2017 (Oral) GTX 1080
+    9 people : 10 fps ; 19 people : 8.8 fps
+    TF, Pytorch 
 
 - [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose)
 
 - [AlphaPose](https://github.com/MVIG-SJTU/AlphaPose)
-- iccv2017
-- 4.6 people : 20 fps 
-- General version, 3X faster
-- Pytorch
+   iccv2017
+   4.6 people : 20 fps 
+   General version, 3X faster
+   Pytorch
 
 - [Deep High-Resolution Representation Learning for Human Pose Estimation](https://github.com/leoxiaobin/deep-high-resolution-net.pytorch)
-- Microsoft
-- CVPR2019
-- fps not mentioned   
-- Pytorch 
+   Microsoft
+   CVPR2019
+   fps not mentioned   
+   Pytorch 
 
 #### 下周任务
 
