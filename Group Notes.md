@@ -80,6 +80,14 @@
 
 - 大家分配着跑这几个项目，并且看看代码实现，关键点在于获得关节点的位置信息。
 
+    郑浩：Deep High-Resolution Representation Learning for Human Pose Estimation
+
+    陆天鑫：AlphaPose
+
+    刘毅阳：Realtime Multi-Person Pose Estimation
+
+    谭树杰：hand pose
+
 #### 杂项
 
 - 可以从keep网站上获得健身视频
