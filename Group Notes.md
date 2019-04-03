@@ -57,7 +57,7 @@
 - [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose)
 
 - [AlphaPose](https://github.com/MVIG-SJTU/AlphaPose)
-   
+  
    iccv2017
    
    4.6 people : 20 fps 
@@ -67,7 +67,7 @@
    Pytorch
 
 - [Deep High-Resolution Representation Learning for Human Pose Estimation](https://github.com/leoxiaobin/deep-high-resolution-net.pytorch)
-   
+  
    Microsoft
    
    CVPR2019
@@ -144,3 +144,77 @@
 #### 杂项
 
 - felix同意购置微软的Kinetic摄像头，尽快购买、报销
+
+
+
+## 第一次答辩 总结
+
+### Approach
+
+As this project is to solve more engineered than research problem, the majority of works is the details of building the whole system. Currently, we have come up with a rough plan for the implementation.
+
+The approach is divided into two sections. The first one is **coach building**, which means that we should find enough videos of standard body-building action and find the statistical information among these videos. The second one is **user correction**, which on the other hand, collect user video and analyze the correctness of specific body part by comparing user action with coach action. 
+
+#### 3.1 Coach building
+
+##### 3.1.1 Normalization
+
+The height or width of the analyzed people would be different because of different body shape, different distance between people and camera, or different camera degrees. In this condition, we only take the first two factors into consideration as it's unpractical to get enough video from every degree in a 3D space. The main idea of normalization in size part is crop and zoom. 
+
+###### Size normalization
+
+As is known to all, the length of spread arms is as long as human height. Thus, taking the middle point of shoulder as center, we leave the space of upper, left and right as $ 1.2\times length_{arm} $, in which $1.2$ is the tolerance of the bias. As for the lower space, it is the lowest point adding $0.2\times length_{arm}$. There's a raised problem: what if the user lay down? The solution is to change the space direction into when detecting the lay down of user. This arm-based normalization promises that the user would not leave out of the cropped region while keeping customization for every user.
+
+###### Aspect ratio normalization
+
+After normalizing cropped size, the aspect ratio may not be the same because of bias. So we should zoom them again into a pre-defined ratio ($w\_pixel \times h\_pixel$), in order to further promising the effectiveness of comparing different images.
+
+##### 3.1.2 Statistical information
+
+The returned data from pose-estimation network contains the label of each point, so we can compute the statistical coordinate information of each joint among different coaches. We assume that the coordinates of same joint for different people at same action frame would form a 2D gaussian distribution, which can be represented as:
+$$
+f(x, y)=\left(2\pi \sigma_1 \sigma_2 \sqrt{1-\rho^2}\right)^{-1} exp\left[-\frac{1}{2(1-\rho^2)} \left(\frac{(x-\mu)^2}{\sigma_1^2} - \frac{2\rho(x-\mu_1)(y-\mu_2)}{\sigma_1 \sigma_2} + \frac{(y-\mu_2)^2}{\sigma_2^2} \right) \right]
+$$
+According to the mean and variance value, we can compute the confidence range according to given confidence level. This range can be used in determining the correctness of user action.
+
+For $\mu = 0 , \sigma = 1$, the 2D confidence level can be computed as following:
+$$
+\begin{split}
+P(r) = Pr\lbrace X^TX\le r^2 \rbrace &= \iint\limits_{x^2 + y^2 \le r^2} \left( \frac{1}{\sqrt{2\pi}} \right)^2 exp\lbrace -\frac{x^2+y^2}{2} \rbrace dxdy \\
+&= \frac{1}{2\pi} \int_0^{2\pi} \int_0^r re^{-\frac{r^2}{2}}drd\theta \\
+&= 1 - exp\lbrace {-\frac{r^2}{2}} \rbrace
+\end{split}
+$$
+
+#### 3.2 User correction
+
+After doing the same normalization mentioned above, we can start comparing the user action and coach action. Here are the other problems:
+
+- Which action the user is doing? 
+- How to determine the image frame that user action is actually at that frame?
+
+The answer of these two questions really depends on the approach of building dataset and extract key frame. Thus, they're remined to be the task of next period.
+
+
+
+### Difficulty
+
+Currently, there are 4 difficulties:
+
+1. How to build coach dataset? Which key frames we should choose?
+2. Whether we should consider the different degree or not?
+3. How to determine which action user is doing?
+4. How to determine if the user is at the key frame of action?
+
+
+
+### Expectation and Schedule
+
+Having explored current pose estimation networks, we settle down our objectives and expectations. In order to implement a complete system from pose estimation to deviation detection, we are going to build a fitness dataset for pose estimation, then apply our real-time rectify architecture, designing a feedback window. At last, we will testing our system and try the best to improve the performance including the accuracy and the response time.
+
+| Time        | Work Arrangement                                             |
+| ----------- | ------------------------------------------------------------ |
+| 4.4-  4.15  | Build fitness data set  and label key frame.<br />Evaluate the pose estimation performance in different angles. |
+| 4.15 - 5.05 | Implement deviation detection as well as the feedback GUI.   |
+| 5.05 - 5.15 | Test the system by accuracy and response time.<br />Optimize the architecture of the network. |
+| 5.15-5.30   | Apply further improvement in functions <br />such as multi-persons deviation detection or 3D transfer models. |
