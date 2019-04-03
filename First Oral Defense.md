@@ -20,7 +20,7 @@ Open pose is designed to solve real-time multi-person pose estimation.  A common
 
 F is the feature of the picture.  S is a set of detection conﬁdence maps which represents the information of the joint point.  T is a set of part afﬁnity ﬁelds which represents the limb.   The part afﬁnity is a 2D vector ﬁeld for each limb.  Parsing is first to find  all the body part and then to ﬁnd a matching with maximum weight for the chosen edges.   Additionally, the structure of VGG-19 is below.  It only contains blue Convolutional layer and red Pooling layer.
 
-<img src="https://github.com/zh-plus/pose-group-work/blob/master/images/first%20defense/network1.png" style="zoom:70%"/>
+<img src="https://github.com/zh-plus/pose-group-work/blob/master/images/first%20defense/network2.png" style="zoom:70%"/>
 
 #### Alpha pose
 
