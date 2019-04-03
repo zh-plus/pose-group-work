@@ -172,19 +172,14 @@ After normalizing cropped size, the aspect ratio may not be the same because of 
 ##### 3.1.2 Statistical information
 
 The returned data from pose-estimation network contains the label of each point, so we can compute the statistical coordinate information of each joint among different coaches. We assume that the coordinates of same joint for different people at same action frame would form a 2D gaussian distribution, which can be represented as:
-$$
-f(x, y)=\left(2\pi \sigma_1 \sigma_2 \sqrt{1-\rho^2}\right)^{-1} exp\left[-\frac{1}{2(1-\rho^2)} \left(\frac{(x-\mu)^2}{\sigma_1^2} - \frac{2\rho(x-\mu_1)(y-\mu_2)}{\sigma_1 \sigma_2} + \frac{(y-\mu_2)^2}{\sigma_2^2} \right) \right]
-$$
+
+![2d_gaussian_formular](https://github.com/zh-plus/pose-group-work/blob/master/images/formular/2d_gaussian.png)
+
 According to the mean and variance value, we can compute the confidence range according to given confidence level. This range can be used in determining the correctness of user action.
 
-For $\mu = 0 , \sigma = 1$, the 2D confidence level can be computed as following:
-$$
-\begin{split}
-P(r) = Pr\lbrace X^TX\le r^2 \rbrace &= \iint\limits_{x^2 + y^2 \le r^2} \left( \frac{1}{\sqrt{2\pi}} \right)^2 exp\lbrace -\frac{x^2+y^2}{2} \rbrace dxdy \\
-&= \frac{1}{2\pi} \int_0^{2\pi} \int_0^r re^{-\frac{r^2}{2}}drd\theta \\
-&= 1 - exp\lbrace {-\frac{r^2}{2}} \rbrace
-\end{split}
-$$
+For $\mu = 0 , \sigma = 1​$, the 2D confidence level can be computed as following:
+
+![2d_gaussian_confidence_level](https://github.com/zh-plus/pose-group-work/blob/master/images/formular/2d_gaussian_confidence_level.png)
 
 #### 3.2 User correction
 
