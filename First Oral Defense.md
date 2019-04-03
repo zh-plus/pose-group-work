@@ -16,11 +16,11 @@ Human 2D pose estimation—the problem of localizing anatomical key points or �
 
 Open pose is designed to solve real-time multi-person pose estimation.  A common approach is to employ a person detector and perform single-person pose estimation for each detection, which will cause three problem:  First, each image may contain an unknown number of people that can occur at any position or scale. Second, interactions between people induce complex spatial interference, due to contact, occlusion, and limb articulations,making association of parts difﬁcult. Third,runtime complexity tends to grow with the number of people in the image, making real time performance a challenge[1].  The top-down approaches lead to many problem and cost lots of  the time.  Open Pose use bottom-up approaches which is named Part Affinity Fields(PAFs), actually a set of 2D vector ﬁelds that encode the location and orientation of limbs over the image domain[1].  It works fast, reach 5 fps on 1050ti, which can reach our needs if deployed on server. The network structure is the picture below.
 
-![微信图片_20190403230126](C:\Users\10578\Desktop\Pose Estimation\第一次答辩\network1.png)
+![微信图片_20190403230126](https://github.com/zh-plus/pose-group-work/blob/master/images/first%20defense/network1.png)
 
 F is the feature of the picture.  S is a set of detection conﬁdence maps which represents the information of the joint point.  T is a set of part afﬁnity ﬁelds which represents the limb.   The part afﬁnity is a 2D vector ﬁeld for each limb.  Parsing is first to find  all the body part and then to ﬁnd a matching with maximum weight for the chosen edges.   Additionally, the structure of VGG-19 is below.  It only contains blue Convolutional layer and red Pooling layer.
 
-<img src="C:\Users\10578\Desktop\Pose Estimation\第一次答辩\network2.png" style="zoom:70%"/>
+<img src="https://github.com/zh-plus/pose-group-work/blob/master/images/first%20defense/network1.png" style="zoom:70%"/>
 
 #### Alpha pose
 
