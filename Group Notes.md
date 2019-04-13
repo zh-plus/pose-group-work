@@ -213,3 +213,39 @@ Having explored current pose estimation networks, we settle down our objectives 
 | 4.15 - 5.05 | Implement deviation detection as well as the feedback GUI.   |
 | 5.05 - 5.15 | Test the system by accuracy and response time.<br />Optimize the architecture of the network. |
 | 5.15-5.30   | Apply further improvement in functions <br />such as multi-persons deviation detection or 3D transfer models. |
+
+
+
+## 2019/4/13
+
+### 本周工作
+
+建立coach 数据集
+
+​	输入：几个教练同一个角度同一个动作同一帧的骨架信息 输出：一张标准动作(ground truth)的骨架信息
+
+​		裁剪crop+放缩scale(以所有关节点的中点做放缩/以左下角/以1点或8点) （直接全图拉伸/每个线段拉伸(DFS)） （头部和脚部缩减关节点数）
+
+​		做统计信息：算出均值 方差 （二维正态分布，求置信水平 -> 用于评价user pose）
+
+
+
+### 下周计划
+
+考虑偏差估计 使用角度 or 位置
+
+考虑如何截取用户的关键帧
+
+考虑3D的可行性 是否可以克服摄像机拍摄角度问题   继续做2D有哪些权衡和优势
+
+
+
+### 本周分工
+
+都了解一下3D的姿态估计, 深度摄像机 以及 姿态动作的评价和比对上是否有其他的参考文献
+
+刘毅阳：做统计信息，理解二维置信水平
+
+郑浩：以1点和以左下角做全图拉伸
+
+陆天鑫：以1点做每个线段的拉伸
